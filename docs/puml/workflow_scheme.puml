@@ -1,0 +1,27 @@
+@startuml
+
+note right of Alice
+Wants to buy Ether
+end note
+
+note right of Bob
+Wants to sell Ether
+end note
+
+
+alt Off-the-application
+Alice -> "Bob" : I want buy N ether\nMy address is 0xdeadbeef \nWhat's your address
+"Bob" -> "Alice": Accept that \nMy address 0x01
+end
+alt Interface
+"Alice" -> Escrow_DApp : Sends placeOrder(amount, sellerAddress)
+Escrow_DApp -> Bob : OK, Order submitted
+"Alice" -> "Bob" : I have submitted order, \ncheck the ESC
+"Bob" -> Escrow_DApp : AcceptTrade(buyerAddress) [Sends method call as well as ether]
+"Escrow_DApp" -> Bob : Funds are locked\nawait payment
+"Escrow_DApp" -> Alice : Funds are locked\n send the payment
+"Alice" -> "Bob" : I have sent the payment,\ncheck and approve
+"Bob" -> Escrow_DApp : ApproveTrade(buyerAddress)
+"Escrow_DApp" -> Alice : Release funds to Alice
+end
+@enduml

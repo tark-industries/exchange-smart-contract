@@ -1,0 +1,20 @@
+@startuml
+
+node Backend {
+
+    cloud "REST API" {
+
+    }
+
+    "REST API" <-> Controller
+    DAO <-> Firebase
+    Controller <-> DAO
+
+}
+
+
+    database Firebase {
+    }
+
+
+@enduml
