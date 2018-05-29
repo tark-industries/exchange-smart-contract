@@ -1,0 +1,58 @@
+@startuml
+
+
+actor Buyer as buyer
+
+actor Seller as seller
+
+seller -down-> abstract_interface
+buyer -down-> abstract_interface
+
+
+
+node "Abstract Interface" as "abstract_interface" {
+    control Metamask as metamask
+
+
+    frame "Web Interface" as web_interface {
+
+    }
+
+    frame "Mobile Interface" as "mobile_interface" {
+
+    }
+
+    web_interface <-up-> metamask
+    mobile_interface <-up-> metamask
+
+    metamask <-> ethereum
+}
+
+
+web_interface <--> backend_api
+mobile_interface <--> backend_api
+backend_api <--> firebase
+node "Backend API" as backend_api {
+
+}
+
+
+note right of backend_api
+  Database of sellers \ buyers
+  Google SSO
+  Does not interact with ethereum network in any ways
+end note
+
+cloud "Ethereum" as ethereum {
+    card "Escrow dapp" {
+
+    }
+}
+
+
+cloud Firebase as firebase {
+
+}
+
+
+@enduml
