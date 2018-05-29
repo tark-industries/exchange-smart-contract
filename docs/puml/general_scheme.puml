@@ -25,7 +25,7 @@ node "Abstract Interface" as "abstract_interface" {
     web_interface <-up-> metamask
     mobile_interface <-up-> metamask
 
-    metamask <-> ethereum
+    metamask <-> escrow_dapp
 }
 
 
@@ -44,7 +44,7 @@ note right of backend_api
 end note
 
 cloud "Ethereum" as ethereum {
-    card "Escrow dapp" {
+    card "Escrow dapp" as escrow_dapp {
 
     }
 }
