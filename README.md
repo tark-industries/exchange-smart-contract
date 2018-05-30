@@ -40,3 +40,40 @@
 
 ##### Frontend
 * Authorization
+
+
+
+#### Cases
+
+This section describes the four exact workflow scheme
+
+Alice wants to buy N ether from Bob, both sides have intention for successful trade.
+1.1) Alice asks Bob for N amount of ether for M fiatRate 
+1.2) Alice creates order through smart-contract metioning sellerAddress, amount and its fiatRate
+1.3) Bob accept the trade sending ether to escrow's address and call params
+1.4) Alice sends payment to Bob's bank details
+1.5) Bob confirms the trade, escrow release funds to Alice
+
+Alice wants to buy N ether from Bob and fool him
+2.1) Alice asks Bob for N amount of ether for M fiatRate
+2.2) Alice creates order through smart-contract metioning sellerAddress, amount and its fiatRate
+2.3) Bob accept the trade sending ether to escrow's address and call params
+2.4) Alice claims that she have sent the payment, although she havent.
+2.5) Bob reject the payment
+2.6) Escrow timed out, money is hold in the escrow. Two parties have to contact the admins  
+
+Alice wants to buy N ether but Bob wants fool her
+3.1) Alice asks Bob for N amount of ether for M fiatRate
+3.2) Alice creates order through smart-contract metioning sellerAddress, amount and its fiatRate
+3.3) Bob accept the trade sending ether to escrow's address and call params
+3.4) Alice have sent the payment, but Bob refuse it.
+3.5) 
+
+Alice wants to buy N ether from Bob, but bank payment is slow
+3.1) Alice asks Bob for N amount of ether for M fiatRate
+3.2) Alice creates order through smart-contract metioning sellerAddress, amount and its fiatRate
+3.3) Bob accept the trade sending ether to escrow's address and call params
+3.4) Alice have sent the payment, but the bank is slow.
+3.5) One of the parties increase timeout of escrow until payment is confirmed
+3.6) Bob accepts the payment
+3.7) Escrow release funds to Alice
