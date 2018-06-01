@@ -8,16 +8,15 @@ note right of Bob
 Wants to sell Ether
 end note
 
-
 alt Off-the-application
 Alice -> "Bob" : I want buy N ether\nMy address is 0xdeadbeef \nWhat's your address
 "Bob" -> "Alice": Accept that \nMy address 0x01
 end
 alt Interface
-"Alice" -> Escrow_DApp : Sends placeOrder(amount, sellerAddress)
+"Alice" -> Escrow_DApp : Sends placeOrder(amount, fiatRate, buyerAddress, sellerAddress)
 Escrow_DApp -> Bob : OK, Order submitted
 "Alice" -> "Bob" : I have submitted order, \ncheck the ESC
-"Bob" -> Escrow_DApp : AcceptTrade(buyerAddress) [Sends method call as well as ether]
+"Bob" -> Escrow_DApp : AcceptTrade(buyerAddress) \n[Sends method call as well as ether]
 "Escrow_DApp" -> Bob : Funds are locked\nawait payment
 "Escrow_DApp" -> Alice : Funds are locked\n send the payment
 "Alice" -> "Bob" : I have sent the payment,\ncheck and approve

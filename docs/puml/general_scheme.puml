@@ -11,7 +11,6 @@ buyer -down-> abstract_interface
 
 
 node "Abstract Interface" as "abstract_interface" {
-    control Metamask as metamask
 
 
     frame "Web Interface" as web_interface {
@@ -22,16 +21,14 @@ node "Abstract Interface" as "abstract_interface" {
 
     }
 
-    web_interface <-up-> metamask
-    mobile_interface <-up-> metamask
-
-    metamask <-> escrow_dapp
 }
 
 
 web_interface <--> backend_api
 mobile_interface <--> backend_api
 backend_api <--> firebase
+backend_api <-> escrow_dapp
+
 node "Backend API" as backend_api {
 
 }
@@ -40,7 +37,7 @@ node "Backend API" as backend_api {
 note right of backend_api
   Database of sellers \ buyers
   Google SSO
-  Does not interact with ethereum network in any ways
+  Interaction with Ethereum
 end note
 
 cloud "Ethereum" as ethereum {
