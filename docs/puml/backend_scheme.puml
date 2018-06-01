@@ -8,12 +8,17 @@ node Backend {
 
     "REST API" <-> Controller
     DAO <-> Firebase
-    Controller <-> DAO
+    Controller <--> DAO
+    Controller <-> Web3Service
+    Web3Service <-> Ethereum
 
 }
 
 
     database Firebase {
+    }
+
+    database Ethereum {
     }
 
 
