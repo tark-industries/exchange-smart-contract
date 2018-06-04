@@ -33,9 +33,23 @@ const registerUserByUID = (UID) => {
     return userRef.set({registered: true})
 };
 
+const getAllUsers = () => {
+    const db = admin.database();
+    const usersRef = db.ref("/users");
+
+    return new Promise((resolve, reject) => {
+        usersRef.once('value', (snap) => {
+            resolve(snap.val())
+        }, (err) => {
+            reject(err);
+        })
+    });
+};
+
 
 module.exports = {
     verifyIdToken: verifyIdToken,
     getUserFromDbByUID: getUserFromDbByUID,
+    getAllUsers: getAllUsers,
     registerUserByUID: registerUserByUID
 };

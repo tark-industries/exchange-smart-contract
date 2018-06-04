@@ -21,7 +21,19 @@ module.exports = {
             });
 
     },
+
     registerUser: (req, res) => {
+        let UID = req.UID;
+        firebaseService.registerUserByUID(UID).then(() => {
+            console.log('success');
+            res.status(200).send();
+        }).catch(err => {
+            console.log(err);
+            res.status(500).send();
+        });
+    },
+
+    getAllUsers: (req, res) => {
         let UID = req.UID;
         firebaseService.registerUserByUID(UID).then(() => {
             console.log('success');
