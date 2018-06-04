@@ -10,12 +10,13 @@ const corsOptions = {
     origin: 'http://127.0.0.1:4200'
 };
 
-app.use(cors())
+app.use(cors());
 
 const port = 3000;
 
 
-app.get('/api/test', cors(corsOptions), authMiddleware.isAuthenticated, mainController.test);
+app.get('/api/auth/check', cors(corsOptions), authMiddleware.isAuthenticated, mainController.authCheck);
+app.get('/api/user/register', cors(corsOptions), authMiddleware.isAuthenticated, mainController.registerUser);
 
 app.listen(port, () => {
     console.log(`Server started up on port ${port}`)

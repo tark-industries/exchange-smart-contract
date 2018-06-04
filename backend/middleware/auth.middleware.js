@@ -1,16 +1,14 @@
-const admin = require('firebase-admin');
-
-const serviceAccount = require('../serviceAccountKey.json');
-
-
-admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount),
-    databaseURL: 'https://exchange-smart-contract.firebaseio.com'
-});
+const firebaseService = require('../service/firebase.service');
 
 const handleError = (res, error) => {
     console.log(error);
     res.status(401).send({error: 'Authentication failed. Unknown error'});
+};
+
+const handleAuth = (decodedToken, idToken, req, next) => {
+    req.idToken = idToken;
+    req.UID = decodedToken.uid;
+    next();
 };
 
 
@@ -20,11 +18,9 @@ module.exports = {
         if (!idToken) {
             res.status(401).send({error: 'Authentication failed. Missing ID Token'});
         } else {
-            admin.auth().verifyIdToken(idToken)
-                .then(function (decodedToken) {
-                    var uid = decodedToken.uid;
-                    console.log('uid', uid)
-                }).catch(error => handleError(res, error));
+            firebaseService.verifyIdToken(idToken)
+                .then(decodedToken => handleAuth(decodedToken, idToken, req, next))
+                .catch(error => handleError(res, error));
         }
     }
 };
