@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {AngularFireAuth} from "angularfire2/auth";
 import {auth} from "firebase";
 import {APIService} from "../../service/api.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -11,36 +12,27 @@ import {APIService} from "../../service/api.service";
 })
 export class LoginComponent implements OnInit {
 
-  constructor(public afAuth: AngularFireAuth, private APIService: APIService) {
+  constructor(public afAuth: AngularFireAuth, private APIService: APIService, private Router: Router) {
   }
+
+  private onIdToken = (idToken) => {
+    console.log(`IdToken: ${idToken}`);
+    if (idToken) {
+      localStorage.setItem('id_token', idToken);
+      this.Router.navigate(['home']);
+    }
+  };
+
+  private onIdTokenError = (err) => {
+    console.log(err)
+  };
 
   ngOnInit() {
-    console.log('1')
-    this.afAuth.idToken.subscribe((idToken) => {
-      console.log(idToken);
-      this.APIService.test(idToken).subscribe((data)=> {
-        console.log(data);
-      })
-    });
-
-
-    this.afAuth.authState.subscribe((auth) => {
-      if (auth) {
-        console.log('authed', auth)
-      } else {
-        console.log('not')
-      }
-    });
-  }
-
-
-  private onAuthStateChanged(auth) {
-
-
+    this.afAuth.idToken.subscribe(this.onIdToken, this.onIdTokenError);
   }
 
   login() {
-    this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider())
+    this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider());
   }
 
   logout() {

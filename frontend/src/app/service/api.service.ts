@@ -7,14 +7,32 @@ export class APIService {
   constructor(private http: HttpClient) {
   }
 
-  public test(idToken) {
+  private getIdTokenFromLS() {
+    return localStorage.getItem('id_token');
+  }
+
+  private sendGet<T>(url, responseType?) {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        'ID_TOKEN': idToken
-      })
+        'id_token': this.getIdTokenFromLS()
+      }),
+      responseType: 'json' as 'json'
     };
 
-    return this.http.get('http://127.0.0.1:3000/api/test', httpOptions);
+    if(responseType) {
+      httpOptions.responseType = responseType;
+    }
+
+    return this.http.get<T>(url, httpOptions);
   }
+
+  public checkAuthentication() {
+    return this.sendGet('http://127.0.0.1:3000/api/auth/check')
+  }
+
+  public registerUserByUID() {
+    return this.sendGet('http://127.0.0.1:3000/api/user/register')
+  }
+
 }

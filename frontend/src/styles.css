@@ -1,1 +1,16 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:300');
 /* You can add global styles to this file, and also import other style files */
+
+* {
+  font-family: Roboto, serif;
+}
+
+html {
+  height: calc(100vh - 50px);
+}
+
+body {
+  height: 100%;
+  background-color: #f2f2f2;
+}
+

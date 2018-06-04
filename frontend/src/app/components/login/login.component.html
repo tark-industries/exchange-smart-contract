@@ -1,8 +1,12 @@
-<div *ngIf="afAuth.user | async as user; else showLogin">
-  <h1>Hello {{ user.displayName }}!</h1>
-  <button (click)="logout()">Logout</button>
+<div class="container">
+  <div class="login_card">
+    <div class="card_content">
+      <img src="assets/ethereum_logo.svg" class="eth_logo"/>
+      <div class="title">
+        <span>Ether</span>
+        <span>Exchange</span>
+      </div>
+      <img (click)="login()" src="assets/google_sign_in.png" class="google_sso"/>
+    </div>
+  </div>
 </div>
-<ng-template #showLogin>
-  <p>Please login.</p>
-  <button (click)="login()">Login with Google</button>
-</ng-template>
