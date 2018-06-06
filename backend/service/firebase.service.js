@@ -33,6 +33,18 @@ const registerUserByUID = (UID) => {
     return userRef.set({registered: true})
 };
 
+
+const addAddressToUser = (UID, address) => {
+    const db = admin.database();
+    const userRef = db.ref("/users/" + UID);
+
+    return userRef.once('value', snap => {
+        let user = snap.val();
+        user.address = address;
+        return userRef.set(user);
+    })
+};
+
 const getAllUsers = () => {
     const db = admin.database();
     const usersRef = db.ref("/users");
@@ -51,5 +63,6 @@ module.exports = {
     verifyIdToken: verifyIdToken,
     getUserFromDbByUID: getUserFromDbByUID,
     getAllUsers: getAllUsers,
-    registerUserByUID: registerUserByUID
+    registerUserByUID: registerUserByUID,
+    addAddressToUser: addAddressToUser
 };

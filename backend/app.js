@@ -16,8 +16,8 @@ const port = 3000;
 
 
 app.get('/api/auth/check', cors(corsOptions), authMiddleware.isAuthenticated, mainController.authCheck);
-app.get('/api/user/register', cors(corsOptions), authMiddleware.isAuthenticated, mainController.registerUser);
-app.get('/api/user/getAll', cors(corsOptions), authMiddleware.isAuthenticated, mainController.getAllUsers);
+app.get('/api/user', cors(corsOptions), authMiddleware.isAuthenticated, mainController.getCurrentUser);
+app.post('/api/user/register', cors(corsOptions), authMiddleware.isAuthenticated, mainController.registerUser);
 
 app.listen(port, () => {
     console.log(`Server started up on port ${port}`)

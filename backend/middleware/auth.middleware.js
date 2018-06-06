@@ -8,6 +8,7 @@ const handleError = (res, error) => {
 const handleAuth = (decodedToken, idToken, req, next) => {
     req.idToken = idToken;
     req.UID = decodedToken.uid;
+    req.userInfo = decodedToken;
     next();
 };
 
