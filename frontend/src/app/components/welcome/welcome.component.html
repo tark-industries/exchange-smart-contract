@@ -1,0 +1,14 @@
+<div class="container">
+  <div class="login_card">
+    <div class="card_content" *ngIf="user && user.picture && user.name">
+      <div class="user_picture">
+        <img [src]="user.picture"/>
+      </div>
+      <div class="welcome_msg">Hi, {{user.name}}!</div>
+      <div class="welcome_description">
+        We have created test wallet for you, and put there 10 ETH (Testnet)
+      </div>
+      <button (click)="next()" class="next_button">OK, let me in</button>
+    </div>
+  </div>
+</div>

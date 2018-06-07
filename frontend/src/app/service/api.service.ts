@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {UserDTO} from "../models/user-dto";
 
 @Injectable()
 export class APIService {
@@ -34,5 +35,14 @@ export class APIService {
   public registerUserByUID() {
     return this.sendGet('http://127.0.0.1:3000/api/user/register')
   }
+
+  public getAllUsers() {
+    return this.sendGet('http://127.0.0.1:3000/api/user/getAll')
+  }
+
+  public getCurrentUser() {
+    return this.sendGet<UserDTO>('http://127.0.0.1:3000/api/user')
+  }
+
 
 }
