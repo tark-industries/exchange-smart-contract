@@ -1,7 +1,5 @@
-const config = require('../../config.json');
 const Web3 = require('web3');
-const abi = require('human-standard-token-abi');
-const provider = new Web3.providers.WebsocketProvider('wss://ropsten.infura.io/_ws');
+const provider = new Web3.providers.WebsocketProvider('wss://ropsten.infura.io/ws');
 
 
 provider.on('error', e => {
@@ -26,6 +24,8 @@ provider.connection._client.config.maxReceivedMessageSize = 83886080;
 module.exports = {
 
     generateAddress : () => {
-        return web3.eth.generateAddress();
+        //return web3.eth.generateAddress()
+        return Promise.resolve("0xTEST_ADDRESS");
     }
+
 };
